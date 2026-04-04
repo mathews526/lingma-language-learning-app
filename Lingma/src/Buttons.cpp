@@ -1,7 +1,5 @@
-#include <string>
-#include <vector>
-#include <SFML/Graphics.hpp>
 #include "Buttons.h"
+#include <SFML/Graphics.hpp>
 using namespace std;
 
 /*==== Button Functions ====*/
@@ -31,8 +29,4 @@ bool Button::Contains(sf::Vector2f mousePos) const
 void Button::DrawButton(sf::RenderWindow& window)
 {
 	window.draw(button);
-}
-void Button::UpdatePosition(const sf::Vector2f& position)
-{
-	button.setPosition(position);
 }

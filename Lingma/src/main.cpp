@@ -1,9 +1,8 @@
-#include "Buttons.h"
+#include "Screens.h"
+#include "UserSelectScreen.h"
 #include <SFML/Graphics.hpp>
-#include <iostream>
+#include <memory>
 using namespace std;
-
-enum class Screen { UserSelect, MainMenu, Learn, Review };
 
 int main()
 {
@@ -13,12 +12,12 @@ int main()
 	sf::RenderWindow window(sf::VideoMode({ width, height }), "Lingma");
 	window.setFramerateLimit(60);
 
-	Screen currentScreen = Screen::UserSelect;
-
 	// Creates a view (the camera)
 	sf::View view(sf::FloatRect({ 0.0f, 0.0f }, { static_cast<float>(width), static_cast<float>(height) }));
 
-	sf::Vector2u winSize = window.getSize();
+	sf::Vector2f winSize = static_cast<sf::Vector2f>(window.getSize());
+	unique_ptr<Screen> currentScreen = make_unique<UserSelect>(winSize);
+
 	// INITIALIZE BUTTONS HERE
 
 	// Event Handling
@@ -35,46 +34,29 @@ int main()
 				float windowWidth = static_cast<float>(resized->size.x);
 				float windowHeight = static_cast<float>(resized->size.y);
 
-				// Updates the view size to match the new window size
-				view.setSize({ windowWidth, windowHeight });
-
-				// Resets the center of the view so (0,0) stays at the top-left
-				view.setCenter({ windowWidth / 2.0f, windowHeight / 2.0f });
-
+				view.setSize({ windowWidth, windowHeight }); // Updates the view size to match the new window size
+				view.setCenter({ windowWidth / 2.0f, windowHeight / 2.0f }); // Resets the center of the view so (0,0) stays at the top-left
 				window.setView(view);
-
-				winSize = window.getSize();
-				// UPDATE BUTTON POSITIONS HERE
+				
+				winSize = static_cast<sf::Vector2f>(window.getSize()); // Stores the new window size
 			}
 
-			// Handle Input based on current screen
-			if (const auto* mousePress = event->getIf<sf::Event::MouseButtonPressed>())
-			{
-				if (currentScreen == Screen::UserSelect)
-				{
-					
-				}
-				else if (currentScreen == Screen::MainMenu)
-				{
-					
-				}
-			}
+			// Current screen handles its own events
+			if (currentScreen)
+				currentScreen->HandleEvent(*event, window);
 		}
 
 		// RENDER SPRITES HERE
 
+		// Updates page elements (e.g. Buttons)
+		if (currentScreen)
+			currentScreen->Update(winSize);
+
 		window.clear(sf::Color(240, 240, 240)); // Light grey background
 
 		// Draws elements based on current screen
-		switch (currentScreen)
-		{
-			case Screen::UserSelect:
-				break;
-			case Screen::MainMenu:
-				break;
-			case Screen::Learn:
-				break;
-		}
+		if (currentScreen)
+			currentScreen->Draw(window);
 
 		window.display();
 	}

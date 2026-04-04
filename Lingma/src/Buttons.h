@@ -1,9 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <string>
-#include <vector>
-using std::string;
-using std::vector;
 
 /*==== Base Class ====*/
 struct Button
@@ -17,11 +13,10 @@ struct Button
 	virtual void MousePress() = 0; // Implement this for any child classes
 	bool Contains(sf::Vector2f mousePos) const; // Indicates whether click was within the button
 	void DrawButton(sf::RenderWindow& window);
-	void UpdatePosition(const sf::Vector2f& position);
+	virtual void UpdatePosition(const sf::Vector2f& winSize) = 0;
 
+protected:
 	sf::RectangleShape button;
 };
 
 // To create a button, make a child class with its own functionality when you click on it
-
-/*==== Derived Buttons ====*/
