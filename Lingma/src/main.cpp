@@ -7,44 +7,95 @@
 #include <ctime>
 #include <queue>
 #include <filesystem>
+#include <memory>
+#include "Screens.h"
+#include "UserSelectScreen.h"
+#include "Card.h"
 using namespace std;
 
 
-class Card
-{
-	string _word;
-	int _srslvl = 0;
-	int _last = 0;
-	int _next = 0;
-	bool _available = false;
-public:
-	Card() = default;
-	Card(string word, int srslvl, int last, int next, bool available) : _word(word), _srslvl(srslvl), _last(last), _next(next), _available(available) {}
-	string getWord() { return _word; }
-	int getLvl() { return _srslvl; }
-	int getLast() { return _last; }
-	int getNext() { return _next; }
-	bool getAvailable() { return _available; }
-
-	void setLvl(int rating) {
-		if (rating == 1 && getLvl() > 1) _srslvl -= 1;
-		else if (rating == 3 && getLvl() < 11) _srslvl += 1;
-	};
-};
-
+void startProgram();
+void review();
 void refreshAvailable(string filename);
 queue<Card> getQueue(string filename);
 int getRating();
 time_t setNext(time_t& now, int srsLvl);
 void updateFile(string filename, Card& card);
 
+enum class Screen { UserSelect, MainMenu, Learn, Review };
 
 int main()
 {
-	//user should be able to see available words on command line
-	//rating 1, 2, or 3 should change timestamp in txt file
+	startProgram();
+	
+	return 0;
+}
 
-	string filename = "sampleSRS.txt";
+void startProgram() 
+{
+	unsigned int width = 854;
+	unsigned int height = 480;
+	// Creates the window
+	sf::RenderWindow window(sf::VideoMode({ width, height }), "Lingma");
+	window.setFramerateLimit(60);
+
+	// Creates a view (the camera)
+	sf::View view(sf::FloatRect({ 0.0f, 0.0f }, { static_cast<float>(width), static_cast<float>(height) }));
+
+	sf::Vector2f winSize = static_cast<sf::Vector2f>(window.getSize());
+	unique_ptr<Screen> currentScreen = make_unique<UserSelect>(winSize);
+
+	// INITIALIZE BUTTONS HERE
+
+	// Event Handling
+	while (window.isOpen())
+	{
+		while (const std::optional event = window.pollEvent())
+		{
+			if (event->is<sf::Event::Closed>())
+				window.close();
+
+			// Handles resizing
+			if (const auto* resized = event->getIf<sf::Event::Resized>())
+			{
+				float windowWidth = static_cast<float>(resized->size.x);
+				float windowHeight = static_cast<float>(resized->size.y);
+
+				view.setSize({ windowWidth, windowHeight }); // Updates the view size to match the new window size
+				view.setCenter({ windowWidth / 2.0f, windowHeight / 2.0f }); // Resets the center of the view so (0,0) stays at the top-left
+				window.setView(view);
+
+				winSize = static_cast<sf::Vector2f>(window.getSize()); // Stores the new window size
+			}
+
+			// Current screen handles its own events
+			if (currentScreen)
+				currentScreen->HandleEvent(*event, window);
+		}
+
+		// RENDER SPRITES HERE
+
+		// Updates page elements (e.g. Buttons)
+		if (currentScreen)
+			currentScreen->Update(winSize);
+
+		window.clear(sf::Color(240, 240, 240)); // Light grey background
+
+		// Draws elements based on current screen
+		if (currentScreen)
+			currentScreen->Draw(window);
+
+		window.display();
+	}
+}
+void review()
+{
+	string filename = "sampleUser.txt";
+	if (!ifstream infile(filename))
+	{
+		cout << "Could not find the user's file" << endl;
+		return;
+	}
 
 	refreshAvailable(filename);
 
@@ -78,9 +129,7 @@ int main()
 		refreshAvailable(filename);
 	}
 	cout << "\nYou're study queue's empty for now! Check back later.";
-	return 0;
 }
-
 void refreshAvailable(string filename)
 {
 	ifstream infile(filename);
@@ -178,6 +227,7 @@ int getRating()
 	int lvl = stoi(rating);
 	return lvl;
 }
+//Using increments of 10 seconds for testing purposes
 time_t setNext(time_t& now, int srsLvl)
 {
 	time_t next = now;
