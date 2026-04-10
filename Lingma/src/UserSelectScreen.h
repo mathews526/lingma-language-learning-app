@@ -12,9 +12,10 @@ struct UserSelect : public Screen
 	/*==== Constructors / Destructors ====*/
 	UserSelect(const sf::Vector2f& winSize); // Create buttons here
 
-	void HandleEvent(const sf::Event& event, sf::RenderWindow& window);
+	// Draw, Update, and HandleEvents are inherited from Screen. 
+	// If you want unique logic for one of these functions for this screen just create that function here, have it call the parent version, and include the unique logic below.
+
 	void Draw(sf::RenderWindow& window);
-	void Update(const sf::Vector2f& winSize);
 
 	/*==== Helper Functions ====*/
 	void PushBackButtons(const sf::Vector2f& winSize); // Pushes all the button objects into the buttons vector

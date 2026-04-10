@@ -8,22 +8,11 @@ UserSelect::UserSelect(const sf::Vector2f& winSize)
 {
 	PushBackButtons(static_cast<sf::Vector2f>(winSize));
 }
-void UserSelect::HandleEvent(const sf::Event& event, sf::RenderWindow& window)
-{
-	if (const auto* mousePress = event.getIf<sf::Event::MouseButtonPressed>())
-	{
-		// TODO: Call the mouse press function for the respective button if clicked on.
-	}
-}
 void UserSelect::Draw(sf::RenderWindow& window)
 {
-	for (int i = 0; i < buttons.size(); i++)
-		buttons[i]->DrawButton(window);
-}
-void UserSelect::Update(const sf::Vector2f& winSize)
-{
-	for (int i = 0; i < buttons.size(); i++)
-		buttons[i]->UpdatePosition(winSize);
+	Screen::Draw(window);
+
+	// Draw unique screen-specific elements below
 }
 void UserSelect::PushBackButtons(const sf::Vector2f& winSize)
 {
