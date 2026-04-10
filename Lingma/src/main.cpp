@@ -22,8 +22,6 @@ int getRating();
 time_t setNext(time_t& now, int srsLvl);
 void updateFile(string filename, Card& card);
 
-enum class Screen { UserSelect, MainMenu, Learn, Review };
-
 int main()
 {
 	startProgram();
@@ -70,7 +68,7 @@ void startProgram()
 
 			// Current screen handles its own events
 			if (currentScreen)
-				currentScreen->HandleEvent(*event, window);
+				currentScreen->HandleEvents(*event, window);
 		}
 
 		// RENDER SPRITES HERE
@@ -91,7 +89,8 @@ void startProgram()
 void review()
 {
 	string filename = "sampleUser.txt";
-	if (!ifstream infile(filename))
+	ifstream infile(filename);
+	if (!infile)
 	{
 		cout << "Could not find the user's file" << endl;
 		return;
