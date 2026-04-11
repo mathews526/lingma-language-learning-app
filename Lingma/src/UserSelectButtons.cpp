@@ -1,10 +1,10 @@
-#include "Buttons.h"
+#include "ImageButton.h"
 #include "UserSelectButtons.h"
 #include <SFML/Graphics.hpp>
 
 /*==== CreateUserButton Functions ====*/
-CreateUserButton::CreateUserButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, Screen& parentScreen)
-	: Button(size, position, color), parent(parentScreen)
+CreateUserButton::CreateUserButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const std::string& textureName, Screen& parentScreen)
+	: ImageButton(size, position, color, textureName), parent(parentScreen)
 {
 
 }
@@ -16,5 +16,5 @@ void CreateUserButton::MousePress()
 }
 void CreateUserButton::UpdatePosition(const sf::Vector2f& winSize)
 {
-	button.setPosition({ winSize.x / 3.0f, winSize.y / 2.0f });
+	SetPosition({ winSize.x / 3.0f, winSize.y / 2.0f });
 }
