@@ -18,6 +18,9 @@ void UserSelect::Draw(sf::RenderWindow& window)
 void UserSelect::PushBackButtons(const sf::Vector2f& winSize)
 {
 	sf::Vector2f userButtonSize({ 100.0f, 50.0f });
+	sf::Color lightBlue(0x669999);
+
 	// If you change the button position here make sure to also change it in the UpdatePosition functions within the button classes
-	buttons.push_back(make_unique<CreateUserButton>(userButtonSize, sf::Vector2f(winSize.x / 3.0f, winSize.y / 2.0f), sf::Color(0x669999), "AddUserIcon", *this));
+	buttons.push_back(make_unique<CreateUserButton>(userButtonSize, sf::Vector2f(winSize.x / 6.0f, (4.0f * winSize.y) / 5.0f), lightBlue, "AddUserIcon", *this));
+	buttons.push_back(make_unique<LoginButton>(userButtonSize, sf::Vector2f(winSize.x / 6.0f, (2.0f * winSize.y) / 5.0f), lightBlue, "ContinueIcon", *this));
 }
