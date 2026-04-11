@@ -53,8 +53,8 @@ void UserSelect::Update(const sf::Vector2f& winSize)
 	Screen::Update(winSize);
 
 	// If you change the textbox position here make sure to also change it in the PushBackElements function within the texbox class
-	for (int i = 0; i < textboxes.size(); i++)
-		textboxes[i]->SetPosition({ winSize.x / 2.0f, winSize.y / 5.0f });
+	textboxes[0]->SetPosition({ winSize.x / 2.0f, winSize.y / 5.0f });
+	textboxes[1]->SetPosition({ winSize.x / 2.0f, (3.0f * winSize.y) / 5.0f });
 }
 
 /*==== Helper Functions ====*/
