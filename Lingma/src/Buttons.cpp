@@ -9,14 +9,8 @@ Button::Button(const sf::Vector2f& size, const sf::Vector2f& position, const sf:
 	button.setOrigin(button.getGeometricCenter());
 	button.setPosition(position);
 	button.setFillColor(color);
-}
-Button::Button(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const sf::Text& text)
-{
-	button.setSize(size);
-	button.setOrigin(button.getGeometricCenter());
-	button.setPosition(position);
-	button.setFillColor(color);
-	// TODO: Decide on a font and download a font file
+	button.setOutlineThickness(1.0f);
+	button.setOutlineColor(sf::Color::Black);
 }
 Button::~Button()
 {
