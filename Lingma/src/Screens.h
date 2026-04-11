@@ -15,9 +15,9 @@ struct Screen
 	virtual ~Screen();
 
 	/*==== Main Functions ====*/
-	virtual void HandleEvent(const sf::Event& event, sf::RenderWindow& window) = 0;
-	virtual void Draw(sf::RenderWindow& window) = 0;
-	virtual void Update(const sf::Vector2f& winSize) = 0;
+	virtual void HandleEvents(const sf::Event& event, sf::RenderWindow& window); // Handles events such as mouse clicks
+	virtual void Draw(sf::RenderWindow& window); // Draws elements onto the screen
+	virtual void Update(const sf::Vector2f& winSize); // Mostly used to update the position of elements when the window is resized
 
 	/*==== Helper Functions ====*/
 	virtual void PushBackButtons(const sf::Vector2f& winSize) = 0; // Pushes all the button objects into the buttons vector
