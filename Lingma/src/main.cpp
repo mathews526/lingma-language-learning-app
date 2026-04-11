@@ -12,6 +12,7 @@
 #include "UserSelectScreen.h"
 #include "MainMenuScreen.h"
 #include "Card.h"
+#include "TextureManager.h"
 using namespace std;
 
 
@@ -95,6 +96,8 @@ void startProgram()
 
 		window.display();
 	}
+
+	TextureManager::Clear();
 }
 void review()
 {
