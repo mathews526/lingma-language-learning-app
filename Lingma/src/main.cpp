@@ -10,6 +10,7 @@
 #include <memory>
 #include "Screens.h"
 #include "UserSelectScreen.h"
+#include "MainMenuScreen.h"
 #include "Card.h"
 using namespace std;
 
@@ -71,11 +72,20 @@ void startProgram()
 				currentScreen->HandleEvents(*event, window);
 		}
 
-		// RENDER SPRITES HERE
-
 		// Updates page elements (e.g. Buttons)
 		if (currentScreen)
 			currentScreen->Update(winSize);
+
+		if (currentScreen->nextScreen != ScreenType::None)
+		{
+			// Check which screen was requested requested
+			if (currentScreen->nextScreen == ScreenType::MainMenu)
+				currentScreen = make_unique<MainMenu>(winSize); // Updates to MainMenu screen
+
+			// TODO: Add more else-if blocks here later for the other screens
+		}
+
+		// RENDER SPRITES HERE
 
 		window.clear(sf::Color(240, 240, 240)); // Light grey background
 
