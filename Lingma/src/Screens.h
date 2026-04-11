@@ -10,9 +10,6 @@ enum class ScreenType { None, UserSelect, MainMenu, Lesson, Review };
 
 struct Screen
 {
-	vector<unique_ptr<Button>> buttons; // Store button types here
-	ScreenType nextScreen = ScreenType::None; // This tells main which screen to switch to next.
-
 	/*==== Constructors / Destructors ====*/
 	virtual ~Screen();
 
@@ -21,6 +18,10 @@ struct Screen
 	virtual void Draw(sf::RenderWindow& window); // Draws elements onto the screen
 	virtual void Update(const sf::Vector2f& winSize); // Mostly used to update the position of elements when the window is resized
 
+protected:
+	vector<unique_ptr<Button>> buttons; // Store button types here
+	ScreenType nextScreen = ScreenType::None; // This tells main which screen to switch to next.
+
 	/*==== Helper Functions ====*/
-	virtual void PushBackButtons(const sf::Vector2f& winSize) = 0; // Pushes all the button objects into the buttons vector
+	virtual void PushBackElements(const sf::Vector2f& winSize) = 0; // Pushes all the elements such as buttons and textboxes
 };

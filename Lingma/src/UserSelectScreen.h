@@ -18,5 +18,5 @@ struct UserSelect : public Screen
 	void Draw(sf::RenderWindow& window);
 
 	/*==== Helper Functions ====*/
-	void PushBackButtons(const sf::Vector2f& winSize); // Pushes all the button objects into the buttons vector
+	void PushBackElements(const sf::Vector2f& winSize); // Pushes all the button objects into the buttons vector
 };

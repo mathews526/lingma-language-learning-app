@@ -7,7 +7,7 @@ using namespace std;
 
 UserSelect::UserSelect(const sf::Vector2f& winSize)
 {
-	PushBackButtons(static_cast<sf::Vector2f>(winSize));
+	PushBackElements(static_cast<sf::Vector2f>(winSize));
 }
 void UserSelect::Draw(sf::RenderWindow& window)
 {
@@ -15,7 +15,7 @@ void UserSelect::Draw(sf::RenderWindow& window)
 
 	// Draw unique screen-specific elements below
 }
-void UserSelect::PushBackButtons(const sf::Vector2f& winSize)
+void UserSelect::PushBackElements(const sf::Vector2f& winSize)
 {
 	sf::Vector2f userButtonSize({ 100.0f, 50.0f });
 	sf::Color lightBlue(0x669999);
