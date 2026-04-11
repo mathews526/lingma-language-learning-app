@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 using namespace std;
 
-/*==== Button Functions ====*/
+/*==== Constructor / Destructor ====*/
 Button::Button(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color)
 {
 	button.setSize(size);
@@ -16,6 +16,8 @@ Button::~Button()
 {
 
 }
+
+/*==== Main Behaviors ====*/
 bool Button::Contains(sf::Vector2f mousePos) const
 {
 	return button.getGlobalBounds().contains(mousePos);
@@ -23,4 +25,10 @@ bool Button::Contains(sf::Vector2f mousePos) const
 void Button::DrawButton(sf::RenderWindow& window)
 {
 	window.draw(button);
+}
+
+/*==== Helper Functions ====*/
+void Button::SetPosition(const sf::Vector2f& pos)
+{
+	button.setPosition(pos);
 }

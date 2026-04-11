@@ -8,7 +8,7 @@ struct Button
 	Button(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color); // Button without text
 	virtual ~Button();
 
-	/*==== Behaviors ====*/
+	/*==== Main Behaviors ====*/
 	virtual void MousePress() = 0; // Implement this for any child classes
 	bool Contains(sf::Vector2f mousePos) const; // Indicates whether click was within the button
 	virtual void DrawButton(sf::RenderWindow& window);
@@ -16,6 +16,9 @@ struct Button
 
 protected:
 	sf::RectangleShape button;
+
+	/*==== Helper Functions ====*/
+	virtual void SetPosition(const sf::Vector2f& pos);
 };
 
 // To create a button, make a child class with its own functionality when you click on it
