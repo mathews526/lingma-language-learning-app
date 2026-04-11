@@ -2,26 +2,22 @@
 #include <SFML/Graphics.hpp>
 using namespace std;
 
-/*==== Button Functions ====*/
+/*==== Constructor / Destructor ====*/
 Button::Button(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color)
 {
 	button.setSize(size);
 	button.setOrigin(button.getGeometricCenter());
 	button.setPosition(position);
 	button.setFillColor(color);
-}
-Button::Button(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const sf::Text& text)
-{
-	button.setSize(size);
-	button.setOrigin(button.getGeometricCenter());
-	button.setPosition(position);
-	button.setFillColor(color);
-	// TODO: Decide on a font and download a font file
+	button.setOutlineThickness(1.0f);
+	button.setOutlineColor(sf::Color::Black);
 }
 Button::~Button()
 {
 
 }
+
+/*==== Main Behaviors ====*/
 bool Button::Contains(sf::Vector2f mousePos) const
 {
 	return button.getGlobalBounds().contains(mousePos);
@@ -29,4 +25,10 @@ bool Button::Contains(sf::Vector2f mousePos) const
 void Button::DrawButton(sf::RenderWindow& window)
 {
 	window.draw(button);
+}
+
+/*==== Helper Functions ====*/
+void Button::SetPosition(const sf::Vector2f& pos)
+{
+	button.setPosition(pos);
 }

@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Buttons.cpp" />
+    <ClCompile Include="src\ImageButton.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MainMenuButtons.cpp" />
     <ClCompile Include="src\MainMenuScreen.cpp" />
@@ -143,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="src\Buttons.h" />
     <ClInclude Include="src\Card.h" />
+    <ClInclude Include="src\ImageButton.h" />
     <ClInclude Include="src\MainMenuButtons.h" />
     <ClInclude Include="src\MainMenuScreen.h" />
     <ClInclude Include="src\Screens.h" />

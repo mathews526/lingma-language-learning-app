@@ -1,15 +1,17 @@
 #pragma once
-#include "UserSelectButtons.h"
+#include "Buttons.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <memory>
 using std::unique_ptr;
 using std::vector;
 
+enum class ScreenType { None, UserSelect, MainMenu, Lesson, Review };
+
 struct Screen
 {
-	// Store button types here
-	vector<unique_ptr<Button>> buttons;
+	vector<unique_ptr<Button>> buttons; // Store button types here
+	ScreenType nextScreen = ScreenType::None; // This tells main which screen to switch to next.
 
 	/*==== Constructors / Destructors ====*/
 	virtual ~Screen();
