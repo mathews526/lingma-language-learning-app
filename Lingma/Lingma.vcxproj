@@ -137,6 +137,7 @@
     <ClCompile Include="src\MainMenuButtons.cpp" />
     <ClCompile Include="src\MainMenuScreen.cpp" />
     <ClCompile Include="src\Screens.cpp" />
+    <ClCompile Include="src\Textbox.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\UserSelectButtons.cpp" />
     <ClCompile Include="src\UserSelectScreen.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="src\MainMenuButtons.h" />
     <ClInclude Include="src\MainMenuScreen.h" />
     <ClInclude Include="src\Screens.h" />
+    <ClInclude Include="src\Textbox.h" />
     <ClInclude Include="src\TextureManager.h" />
     <ClInclude Include="src\UserSelectButtons.h" />
     <ClInclude Include="src\UserSelectScreen.h" />
