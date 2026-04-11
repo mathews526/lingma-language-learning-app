@@ -1,21 +1,30 @@
 #include "TextureManager.h"
+#include <unordered_map>
+#include <string>
+#include <memory>
+#include <iostream>
+using namespace std;
 
-unordered_map<string, sf::Texture> TextureManager::textures;
+unordered_map<string, unique_ptr<sf::Texture>> TextureManager::textures;
 
-void TextureManager::LoadTexture(string fileName)
+void TextureManager::LoadTexture(const string& fileName)
 {
-	string path = "images/";
-	path += fileName + ".png";
+	string path = "visuals/" + fileName + ".png";
 
-	textures[fileName].loadFromFile(path);
+	auto texture = make_unique<sf::Texture>();
+
+	if (!texture->loadFromFile(path))
+		std::cerr << "Error: TextureManager failed to load " << path << "\n";
+
+	textures[fileName] = move(texture);
 }
 
-sf::Texture& TextureManager::GetTexture(string textureName)
+sf::Texture& TextureManager::GetTexture(const string& textureName)
 {
 	if (textures.find(textureName) == textures.end())
 		LoadTexture(textureName);
 
-	return textures[textureName];
+	return *textures[textureName];
 }
 
 void TextureManager::Clear()
