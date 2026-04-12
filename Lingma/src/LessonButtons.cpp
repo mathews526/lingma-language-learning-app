@@ -48,3 +48,19 @@ void GreenButton::UpdatePosition(const sf::Vector2f& winSize)
 	// If you change the button position here make sure to also change it in the PushBackButtons function in the respective Screen class
 	SetPosition({ (2.0f * winSize.x) / 3.0f, (7.0f * winSize.y) / 8.0f });
 }
+
+/*==== AudioButton Functions ====*/
+AudioButton::AudioButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const string& textureName)
+	: ImageButton(size, position, color, textureName)
+{
+
+}
+void AudioButton::MousePress()
+{
+	// TODO: Implement button functionality
+}
+void AudioButton::UpdatePosition(const sf::Vector2f& winSize)
+{
+	// If you change the button position here make sure to also change it in the PushBackButtons function in the respective Screen class
+	SetPosition({ winSize.x / 2.0f, (5.0f * winSize.y) / 8.0f });
+}
