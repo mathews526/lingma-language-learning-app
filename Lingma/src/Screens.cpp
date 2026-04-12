@@ -1,15 +1,17 @@
 #include "Screens.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
 #include <memory>
 using namespace std;
 
-/*==== Screen Functions ====*/
+/*==== Constructors/Destructors ====*/
 Screen::~Screen()
 {
 
 }
 
+/*==== Main Behaviors ====*/
 void Screen::HandleEvents(const sf::Event& event, sf::RenderWindow& window)
 {
 	if (const auto* mousePress = event.getIf<sf::Event::MouseButtonPressed>())
@@ -27,15 +29,22 @@ void Screen::HandleEvents(const sf::Event& event, sf::RenderWindow& window)
 		}
 	}
 }
-
 void Screen::Draw(sf::RenderWindow& window)
 {
 	for (int i = 0; i < buttons.size(); i++)
 		buttons[i]->DrawButton(window);
 }
-
 void Screen::Update(const sf::Vector2f& winSize)
 {
 	for (int i = 0; i < buttons.size(); i++)
 		buttons[i]->UpdatePosition(winSize);
+}
+
+/*==== Helper Function ====*/
+void Screen::LoadFont(const string& fontName)
+{
+	if (!font.openFromFile(fontName + ".ttf"))
+	{
+		std::cerr << "Error: Could not load font file." << endl;
+	}
 }

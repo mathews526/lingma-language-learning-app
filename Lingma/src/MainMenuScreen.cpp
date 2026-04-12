@@ -14,7 +14,7 @@ void MainMenu::Draw(sf::RenderWindow& window)
 
 	// Draw unique screen-specific elements below
 }
-void MainMenu::PushBackButtons(const sf::Vector2f& winSize)
+void MainMenu::PushBackElements(const sf::Vector2f& winSize)
 {
 	// TODO: Push the buttons related to this screen to the buttons vector
 }

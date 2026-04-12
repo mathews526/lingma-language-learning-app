@@ -17,7 +17,7 @@ void CreateUserButton::MousePress()
 void CreateUserButton::UpdatePosition(const sf::Vector2f& winSize)
 {
 	// If you change the button position here make sure to also change it in the PushBackButtons function in the respective Screen class
-	SetPosition({ winSize.x / 6.0f, (4.0f * winSize.y) / 5.0f });
+	SetPosition({ winSize.x / 2.0f, (4.0f * winSize.y) / 5.0f });
 }
 
 /*==== LoginButton Functions ====*/
@@ -34,6 +34,6 @@ void LoginButton::MousePress()
 }
 void LoginButton::UpdatePosition(const sf::Vector2f& winSize)
 {
-	// If you change the button position here make sure to also change it in the PushBackButtons function in the respective Screen class
-	SetPosition({ winSize.x / 6.0f, (2.0f * winSize.y) / 5.0f });
+	// If you change the button position here make sure to also change it in the PushBackElements function in the respective Screen class
+	SetPosition({ winSize.x / 2.0f, (2.0f * winSize.y) / 5.0f });
 }

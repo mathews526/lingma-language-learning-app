@@ -1,6 +1,7 @@
 #pragma once
 #include "Screens.h"
 #include "Buttons.h"
+#include "Textbox.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <memory>
@@ -12,11 +13,14 @@ struct UserSelect : public Screen
 	/*==== Constructors / Destructors ====*/
 	UserSelect(const sf::Vector2f& winSize); // Create buttons here
 
-	// Draw, Update, and HandleEvents are inherited from Screen. 
-	// If you want unique logic for one of these functions for this screen just create that function here, have it call the parent version, and include the unique logic below.
-
+	/*==== Main Behavior ====*/
+	void HandleEvents(const sf::Event& event, sf::RenderWindow& window);
 	void Draw(sf::RenderWindow& window);
+	void Update(const sf::Vector2f& winSize);
+
+private:
+	vector<unique_ptr<Textbox>> textboxes;
 
 	/*==== Helper Functions ====*/
-	void PushBackButtons(const sf::Vector2f& winSize); // Pushes all the button objects into the buttons vector
+	void PushBackElements(const sf::Vector2f& winSize); // Pushes all the button objects into the buttons vector
 };

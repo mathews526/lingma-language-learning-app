@@ -14,7 +14,7 @@ void TextureManager::LoadTexture(const string& fileName)
 	auto texture = make_unique<sf::Texture>();
 
 	if (!texture->loadFromFile(path))
-		std::cerr << "Error: TextureManager failed to load " << path << "\n";
+		std::cerr << "Error: TextureManager failed to load " << path << endl;
 
 	textures[fileName] = move(texture);
 }
