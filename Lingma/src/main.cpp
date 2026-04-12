@@ -70,9 +70,7 @@ void startProgram()
 			// TODO: Add more else-if blocks here later for the other screens
 		}
 
-		// RENDER SPRITES HERE
-
-		window.clear(sf::Color(240, 240, 240)); // Light grey background
+		window.clear(sf::Color(255, 255, 255)); // White background
 
 		// Draws elements based on current screen
 		if (currentScreen)
