@@ -3,6 +3,8 @@
 #include "Screens.h"
 #include "UserSelectScreen.h"
 #include "MainMenuScreen.h"
+#include "LessonScreen.h"
+#include "ReviewScreen.h"
 #include "Card.h"
 #include "TextureManager.h"
 #include "SRS.h"
@@ -66,6 +68,10 @@ void startProgram()
 			// Check which screen was requested requested
 			if (currentScreen->nextScreen == ScreenType::MainMenu)
 				currentScreen = make_unique<MainMenu>(winSize); // Updates to MainMenu screen
+			else if (currentScreen->nextScreen == ScreenType::Lesson)
+				currentScreen = make_unique<Lesson>(winSize); // Updates to Lesson screen
+			else if (currentScreen->nextScreen == ScreenType::Review)
+				currentScreen = make_unique<Review>(winSize); // Updates to Lesson screen
 
 			// TODO: Add more else-if blocks here later for the other screens
 		}
