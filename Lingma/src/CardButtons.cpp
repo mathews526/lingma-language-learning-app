@@ -1,15 +1,20 @@
 #include "CardButtons.h"
+#include "Screens.h"
+#include "ReviewScreen.h"
+#include "LessonScreen.h"
 #include <SFML/Graphics.hpp>
+#include <functional>
+using namespace std;
 
 /*==== RedButton Functions ====*/
-RedButton::RedButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color)
-	: Button(size, position, color)
+RedButton::RedButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, Review& parentScreen)
+	: Button(size, position, color), parent(parentScreen)
 {
 
 }
 void RedButton::MousePress()
 {
-	// TODO: Implement button functionality
+	parent.RateCurrentCard(1); // Down
 }
 void RedButton::UpdatePosition(const sf::Vector2f& winSize)
 {
@@ -18,14 +23,14 @@ void RedButton::UpdatePosition(const sf::Vector2f& winSize)
 }
 
 /*==== YellowButton Functions ====*/
-YellowButton::YellowButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color)
-	: Button(size, position, color)
+YellowButton::YellowButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, Review& parentScreen)
+	: Button(size, position, color), parent(parentScreen)
 {
 
 }
 void YellowButton::MousePress()
 {
-	// TODO: Implement button functionality
+	parent.RateCurrentCard(2); // Same
 }
 void YellowButton::UpdatePosition(const sf::Vector2f& winSize)
 {
@@ -34,14 +39,14 @@ void YellowButton::UpdatePosition(const sf::Vector2f& winSize)
 }
 
 /*==== GreenButton Functions ====*/
-GreenButton::GreenButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color)
-	: Button(size, position, color)
+GreenButton::GreenButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, Review& parentScreen)
+	: Button(size, position, color), parent(parentScreen)
 {
 
 }
 void GreenButton::MousePress()
 {
-	// TODO: Implement button functionality
+	parent.RateCurrentCard(3); // Up
 }
 void GreenButton::UpdatePosition(const sf::Vector2f& winSize)
 {
@@ -49,15 +54,47 @@ void GreenButton::UpdatePosition(const sf::Vector2f& winSize)
 	SetPosition({ (2.0f * winSize.x) / 3.0f, (7.0f * winSize.y) / 8.0f });
 }
 
+/*==== NextButton Functions ====*/
+NextButton::NextButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const string& textureName, Lesson& parentScreen)
+	: ImageButton(size, position, color, textureName), parent(parentScreen)
+{
+
+}
+void NextButton::MousePress()
+{
+	parent.NextCard();
+}
+void NextButton::UpdatePosition(const sf::Vector2f& winSize)
+{
+	// If you change the button position here make sure to also change it in the PushBackButtons function in the respective Screen class
+	SetPosition({ (7.0f * winSize.x) / 8.0f, (7.0f * winSize.y) / 8.0f });
+}
+
+/*==== BackButton Functions ====*/
+BackButton::BackButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const string& textureName, Screen& parentScreen)
+	: ImageButton(size, position, color, textureName), parent(parentScreen)
+{
+
+}
+void BackButton::MousePress()
+{
+	parent.nextScreen = ScreenType::MainMenu;
+}
+void BackButton::UpdatePosition(const sf::Vector2f& winSize)
+{
+	// If you change the button position here make sure to also change it in the PushBackButtons function in the respective Screen class
+	SetPosition({ winSize.x / 8.0f, winSize.y / 8.0f });
+}
+
 /*==== AudioButton Functions ====*/
-AudioButton::AudioButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const string& textureName)
-	: ImageButton(size, position, color, textureName)
+AudioButton::AudioButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const string& textureName, Lesson& parentScreen)
+	: ImageButton(size, position, color, textureName), parent(parentScreen)
 {
 
 }
 void AudioButton::MousePress()
 {
-	// TODO: Implement button functionality
+	parent.PlayCurrentAudio();
 }
 void AudioButton::UpdatePosition(const sf::Vector2f& winSize)
 {

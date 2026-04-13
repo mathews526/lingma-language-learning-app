@@ -132,6 +132,57 @@ queue<Card> getQueue(string filename)
 	return q;
 
 }
+// The same as getQueue but pushed unavailable cards
+queue<Card> getLessonQueue(string filename)
+{
+	queue<Card> q;
+
+	ifstream infile(filename);
+	if (!infile)
+	{
+		cerr << "Couldn't find file";
+		return q;
+	}
+
+	string line;
+
+	//should append all the true values to the queue
+	while (getline(infile, line))
+	{
+		stringstream ss(line);
+		string word, srslevel, boolStr;
+		//should use ctime library
+		int srslvl = 0, ts1 = 0, ts2 = 0;
+		string timestamp1, timestamp2;
+		bool available = false;
+
+		getline(ss, word, ',');
+		getline(ss, srslevel, ',');
+		srslvl = stoi(srslevel);
+		getline(ss, timestamp1, ',');
+		ts1 = stoi(timestamp1);
+		getline(ss, timestamp2, ',');
+		ts2 = stoi(timestamp2);
+		getline(ss, boolStr, ',');
+		if (boolStr == "1")
+		{
+			available = true;
+		}
+		else
+		{
+			available = false;
+		}
+
+		Card c(word, srslvl, ts1, ts2, available);
+
+		if (!available)
+		{
+			q.push(c);
+		}
+	}
+	infile.close();
+	return q;
+}
 int getRating()
 {
 	string rating;
