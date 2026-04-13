@@ -2,10 +2,6 @@
 #include "Screens.h"
 #include "Buttons.h"
 #include <SFML/Graphics.hpp>
-#include <vector>
-#include <memory>
-using std::vector;
-using std::unique_ptr;
 
 struct Review : public Screen
 {
@@ -15,6 +11,7 @@ struct Review : public Screen
 	/*==== Main Behavior ====*/
 	void Draw(sf::RenderWindow& window);
 
+private:
 	/*==== Helper Functions ====*/
 	void PushBackElements(const sf::Vector2f& winSize); // Pushes all the button objects into the buttons vector
 };
