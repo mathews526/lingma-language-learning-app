@@ -57,10 +57,7 @@
     <ClCompile Include="src\ReviewScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ReviewButtons.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LessonButtons.cpp">
+    <ClCompile Include="src\CardButtons.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,10 +104,7 @@
     <ClInclude Include="src\ReviewScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\LessonButtons.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ReviewButtons.h">
+    <ClInclude Include="src\CardButtons.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

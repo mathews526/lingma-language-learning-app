@@ -133,13 +133,12 @@
   <ItemGroup>
     <ClCompile Include="src\Buttons.cpp" />
     <ClCompile Include="src\ImageButton.cpp" />
-    <ClCompile Include="src\LessonButtons.cpp" />
+    <ClCompile Include="src\CardButtons.cpp" />
     <ClCompile Include="src\LessonScreen.cpp" />
     <ClCompile Include="src\LocalStorage.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MainMenuButtons.cpp" />
     <ClCompile Include="src\MainMenuScreen.cpp" />
-    <ClCompile Include="src\ReviewButtons.cpp" />
     <ClCompile Include="src\ReviewScreen.cpp" />
     <ClCompile Include="src\Screens.cpp" />
     <ClCompile Include="src\SRS.cpp" />
@@ -152,12 +151,11 @@
     <ClInclude Include="src\Buttons.h" />
     <ClInclude Include="src\Card.h" />
     <ClInclude Include="src\ImageButton.h" />
-    <ClInclude Include="src\LessonButtons.h" />
+    <ClInclude Include="src\CardButtons.h" />
     <ClInclude Include="src\LessonScreen.h" />
     <ClInclude Include="src\LocalStorage.h" />
     <ClInclude Include="src\MainMenuButtons.h" />
     <ClInclude Include="src\MainMenuScreen.h" />
-    <ClInclude Include="src\ReviewButtons.h" />
     <ClInclude Include="src\ReviewScreen.h" />
     <ClInclude Include="src\Screens.h" />
     <ClInclude Include="src\SRS.h" />
