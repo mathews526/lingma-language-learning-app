@@ -33,7 +33,10 @@ void startProgram()
 
 	sf::Vector2f winSize = static_cast<sf::Vector2f>(window.getSize());
 	unique_ptr<Screen> currentScreen = make_unique<UserSelect>(winSize);
-	// TODO: Have the current username update whenever the user creates a new user or logs in to an already existing one
+
+	/*
+		TODO: Have the current username update whenever the user creates a new user or logs in to an already existing one
+	*/
 	string currentUserName = "data/sampleUser.txt"; // This will hold the filename of the currently loaded user. For now it will be set to the test user
 
 	// Event Handling
