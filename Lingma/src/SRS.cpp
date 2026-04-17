@@ -175,7 +175,7 @@ queue<Card> getLessonQueue(string filename)
 
 		Card c(word, srslvl, ts1, ts2, available);
 
-		if (!available)
+		if (srslvl == 0)
 		{
 			q.push(c);
 		}
