@@ -1,14 +1,11 @@
 #pragma once
-#include <iostream>
 #include <string>
-#include <vector>
 #include <queue>
-#include <fstream>
-#include <filesystem>
-#include <sstream>
 #include <ctime>
 #include "Card.h"
-using namespace std;
+using std::string;
+using std::queue;
+using std::time_t;
 
 void review();
 void refreshAvailable(string filename);

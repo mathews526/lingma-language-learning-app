@@ -42,6 +42,18 @@ void Review::RateCurrentCard(int rating)
 	currentCard.setLvl(rating);
 
 	time_t now = time(nullptr); // returns current time
+
+	// If mastered, do not schedule it for review anymore
+	if (currentCard.getLvl() >= 5)
+	{
+		Card updated(currentCard.getWord(), currentCard.getLvl(), static_cast<int>(now), 0, false);
+
+		updateFile(filename, updated);
+		cardQueue.pop();
+		LoadCurrentCard();
+		return;
+	}
+
 	time_t next = setNext(now, currentCard.getLvl());
 
 	Card updated(currentCard.getWord(), currentCard.getLvl(), static_cast<int>(now), static_cast<int>(next), false);

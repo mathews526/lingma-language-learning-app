@@ -1,4 +1,13 @@
 #include "SRS.h"
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <filesystem>
+#include <sstream>
+#include <string>
+#include <queue>
+#include <ctime>
+using namespace std;
 
 void review()
 {
@@ -47,6 +56,13 @@ void refreshAvailable(string filename)
 {
 	ifstream infile(filename);
 	ofstream outfile("temp.txt");
+
+	if (!infile || !outfile)
+	{
+		cerr << "Could not open file" << endl;
+		return;
+	}
+
 	string line;
 	time_t now = time(nullptr);
 
@@ -60,8 +76,14 @@ void refreshAvailable(string filename)
 		{
 			tokens.push_back(token);
 		}
+		int srslvl = stoi(tokens[1]);
 		long long lastSeen = stoll(tokens[3]);
-		if (now >= lastSeen)
+		if (srslvl >= 5)
+		{
+			// Mastered cards never become available again
+			tokens[4] = "0";
+		}
+		else if (now >= lastSeen)
 		{
 			tokens[4] = "1";
 		}
@@ -123,7 +145,7 @@ queue<Card> getQueue(string filename)
 
 		Card c(word, srslvl, ts1, ts2, available);
 
-		if (available)
+		if (available && srslvl < 5)
 		{
 			q.push(c);
 		}
