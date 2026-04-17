@@ -3,14 +3,15 @@
 #include <SFML/Graphics.hpp>
 
 /*==== CreateUserButton Functions ====*/
-CreateUserButton::CreateUserButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const std::string& textureName, Screen& parentScreen)
-	: ImageButton(size, position, color, textureName), parent(parentScreen)
+CreateUserButton::CreateUserButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const string& textureName, Screen& parentScreen, Textbox& userInput)
+	: ImageButton(size, position, color, textureName), parent(parentScreen), input(userInput)
 {
 
 }
 void CreateUserButton::MousePress()
 {
 	// TODO: Implement button functionality
+	input.GetText();
 
 	parent.nextScreen = ScreenType::MainMenu; // Tells parent screen to switch to the MainMenu
 }
@@ -21,14 +22,15 @@ void CreateUserButton::UpdatePosition(const sf::Vector2f& winSize)
 }
 
 /*==== LoginButton Functions ====*/
-LoginButton::LoginButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const string& textureName, Screen& parentScreen)
-	: ImageButton(size, position, color, textureName), parent(parentScreen)
+LoginButton::LoginButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const string& textureName, Screen& parentScreen, Textbox& userInput)
+	: ImageButton(size, position, color, textureName), parent(parentScreen), input(userInput)
 {
 
 }
 void LoginButton::MousePress()
 {
 	// TODO: Implement button functionality
+	input.GetText();
 
 	parent.nextScreen = ScreenType::MainMenu; // Tells parent screen to switch to the MainMenu
 }
