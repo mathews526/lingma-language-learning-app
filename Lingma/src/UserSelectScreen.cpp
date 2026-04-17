@@ -70,6 +70,6 @@ void UserSelect::PushBackElements(const sf::Vector2f& winSize)
 	textboxes.push_back(make_unique<Textbox>(font, fontSize, textboxSize, sf::Vector2f(winSize.x / 2.0f, (3.0f * winSize.y) / 5.0f), sf::Color::Black));
 
 	// If you change the button position here make sure to also change it in the UpdatePosition functions within the button classes
-	buttons.push_back(make_unique<LoginButton>(userButtonSize, sf::Vector2f(winSize.x / 2.0f, (2.0f * winSize.y) / 5.0f), lightBlue, "ContinueIcon", *this, textboxes[0]));
-	buttons.push_back(make_unique<CreateUserButton>(userButtonSize, sf::Vector2f(winSize.x / 2.0f, (4.0f * winSize.y) / 5.0f), lightBlue, "AddUserIcon", *this, textboxes[1]));
+	buttons.push_back(make_unique<LoginButton>(userButtonSize, sf::Vector2f(winSize.x / 2.0f, (2.0f * winSize.y) / 5.0f), lightBlue, "ContinueIcon", *this, *textboxes[0]));
+	buttons.push_back(make_unique<CreateUserButton>(userButtonSize, sf::Vector2f(winSize.x / 2.0f, (4.0f * winSize.y) / 5.0f), lightBlue, "AddUserIcon", *this, *textboxes[1]));
 }
