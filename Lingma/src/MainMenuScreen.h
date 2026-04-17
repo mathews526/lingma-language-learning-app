@@ -9,12 +9,13 @@ using std::unique_ptr;
 
 struct MainMenu : public Screen
 {
-	/*==== Constructors / Destructors ====*/
+	/*==== Constructors ====*/
 	MainMenu(const sf::Vector2f& winSize); // Create buttons here
 
-	/*==== Constructors / Destructors ====*/
+	/*==== Main Behaviors ====*/
 	void Draw(sf::RenderWindow& window);
 
+private:
 	/*==== Helper Functions ====*/
 	void PushBackElements(const sf::Vector2f& winSize); // Pushes all the button objects into the buttons vector
 };

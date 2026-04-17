@@ -24,7 +24,7 @@ void UserSelect::HandleEvents(const sf::Event& event, sf::RenderWindow& window)
 	{
 		if (mousePress->button == sf::Mouse::Button::Left)
 		{
-			sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+			sf::Vector2f mousePos = window.mapPixelToCoords(mousePress->position);
 
 			for (int i = 0; i < textboxes.size(); i++)
 			{
@@ -65,11 +65,11 @@ void UserSelect::PushBackElements(const sf::Vector2f& winSize)
 	unsigned int fontSize = 20;
 	sf::Color lightBlue(0x669999);
 
-	// If you change the button position here make sure to also change it in the UpdatePosition functions within the button classes
-	buttons.push_back(make_unique<CreateUserButton>(userButtonSize, sf::Vector2f(winSize.x / 2.0f, (4.0f * winSize.y) / 5.0f), lightBlue, "AddUserIcon", *this));
-	buttons.push_back(make_unique<LoginButton>(userButtonSize, sf::Vector2f(winSize.x / 2.0f, (2.0f * winSize.y) / 5.0f), lightBlue, "ContinueIcon", *this));
-
 	// If you change the textbox position here make sure to also change it in the UpdatePosition function within the texbox class
 	textboxes.push_back(make_unique<Textbox>(font, fontSize, textboxSize, sf::Vector2f(winSize.x / 2.0f, winSize.y / 5.0f), sf::Color::Black));
 	textboxes.push_back(make_unique<Textbox>(font, fontSize, textboxSize, sf::Vector2f(winSize.x / 2.0f, (3.0f * winSize.y) / 5.0f), sf::Color::Black));
+
+	// If you change the button position here make sure to also change it in the UpdatePosition functions within the button classes
+	buttons.push_back(make_unique<LoginButton>(userButtonSize, sf::Vector2f(winSize.x / 2.0f, (2.0f * winSize.y) / 5.0f), lightBlue, "ContinueIcon", *this, *textboxes[0]));
+	buttons.push_back(make_unique<CreateUserButton>(userButtonSize, sf::Vector2f(winSize.x / 2.0f, (4.0f * winSize.y) / 5.0f), lightBlue, "AddUserIcon", *this, *textboxes[1]));
 }

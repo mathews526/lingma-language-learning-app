@@ -1,8 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <string>
 #include "Screens.h"
 #include "UserSelectScreen.h"
 #include "MainMenuScreen.h"
+#include "LessonScreen.h"
+#include "ReviewScreen.h"
 #include "Card.h"
 #include "TextureManager.h"
 #include "SRS.h"
@@ -30,6 +33,11 @@ void startProgram()
 
 	sf::Vector2f winSize = static_cast<sf::Vector2f>(window.getSize());
 	unique_ptr<Screen> currentScreen = make_unique<UserSelect>(winSize);
+
+	/*
+		TODO: Have the current username update whenever the user creates a new user or logs in to an already existing one
+	*/
+	string currentUserName = "data/sampleUser.txt"; // This will hold the filename of the currently loaded user. For now it will be set to the test user
 
 	// Event Handling
 	while (window.isOpen())
@@ -66,13 +74,15 @@ void startProgram()
 			// Check which screen was requested requested
 			if (currentScreen->nextScreen == ScreenType::MainMenu)
 				currentScreen = make_unique<MainMenu>(winSize); // Updates to MainMenu screen
+			else if (currentScreen->nextScreen == ScreenType::Lesson)
+				currentScreen = make_unique<Lesson>(winSize, currentUserName); // Updates to Lesson screen
+			else if (currentScreen->nextScreen == ScreenType::Review)
+				currentScreen = make_unique<Review>(winSize, currentUserName); // Updates to Lesson screen
 
 			// TODO: Add more else-if blocks here later for the other screens
 		}
 
-		// RENDER SPRITES HERE
-
-		window.clear(sf::Color(240, 240, 240)); // Light grey background
+		window.clear(sf::Color(255, 255, 255)); // White background
 
 		// Draws elements based on current screen
 		if (currentScreen)
