@@ -12,8 +12,6 @@ LessonButton::LessonButton(const sf::Vector2f& size, const sf::Vector2f& positio
 }
 void LessonButton::MousePress()
 {
-	// TODO: Implement button functionality
-
 	parent.nextScreen = ScreenType::Lesson;
 }
 void LessonButton::UpdatePosition(const sf::Vector2f& winSize)
@@ -30,8 +28,6 @@ ReviewButton::ReviewButton(const sf::Vector2f& size, const sf::Vector2f& positio
 }
 void ReviewButton::MousePress()
 {
-	// TODO: Implement button functionality
-
 	parent.nextScreen = ScreenType::Review;
 }
 void ReviewButton::UpdatePosition(const sf::Vector2f& winSize)
