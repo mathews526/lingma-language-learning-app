@@ -5,12 +5,14 @@
 #include <SFML/Graphics.hpp>
 #include <queue>
 #include <string>
+#include <memory>
 #include <algorithm>
+#include <ctime>
 using namespace std;
 
 /*==== Constructor ====*/
-Lesson::Lesson(const sf::Vector2f& winSize, const string& filename)
-	: filename(filename)
+Lesson::Lesson(const sf::Vector2f& winSize, AppState& appState)
+	: app(appState), filename(appState.currentUserFile)
 {
 	cardQueue = getLessonQueue(filename);
 
@@ -30,12 +32,22 @@ void Lesson::Draw(sf::RenderWindow& window)
 }
 void Lesson::Update(const sf::Vector2f& winSize)
 {
-
+	Screen::Update(winSize);
+	PositionCardImage(winSize);
 }
 void Lesson::NextCard()
 {
 	if (cardQueue.empty())
 		return;
+
+	int newLvl = 1;
+	time_t now = time(nullptr);
+	time_t next = setNext(now, newLvl);
+
+	Card updatedCard(currentCard.getWord(), newLvl, static_cast<int>(now), static_cast<int>(next), false);
+
+	updateFile(filename, updatedCard);
+
 	cardQueue.pop();
 	LoadCurrentCard();
 }
@@ -101,7 +113,7 @@ void Lesson::PositionCardImage(const sf::Vector2f& winSize)
 
 	float scaleX = maxWidth / static_cast<float>(textureSize.x);
 	float scaleY = maxHeight / static_cast<float>(textureSize.y);
-	float scale = std::min(scaleX, scaleY);
+	float scale = min(scaleX, scaleY);
 
 	cardImage->setScale({ scale, scale });
 
