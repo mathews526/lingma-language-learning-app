@@ -5,7 +5,8 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::string;
+using std::vector;
 
 // Struct to hold one user's progress
 struct UserProgress {
@@ -47,6 +48,8 @@ public:
 
     // Loads one user's progress by username
     bool loadUserProgress(const string& username, UserProgress& result) const;
+
+    bool createNewUserVocabFile(const string& username, const vector<string>& vocabWords) const;
 };
 
 #endif
