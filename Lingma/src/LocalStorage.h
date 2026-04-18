@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::string;
+using std::vector;
 
 // Struct to hold one user's progress
 struct UserProgress {
