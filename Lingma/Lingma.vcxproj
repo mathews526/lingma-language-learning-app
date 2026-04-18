@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AppState.cpp" />
     <ClCompile Include="src\Buttons.cpp" />
     <ClCompile Include="src\ImageButton.cpp" />
     <ClCompile Include="src\CardButtons.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="src\UserSelectScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AppState.h" />
     <ClInclude Include="src\Buttons.h" />
     <ClInclude Include="src\Card.h" />
     <ClInclude Include="src\ImageButton.h" />

@@ -5,12 +5,14 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <memory>
+#include <string>
+#include <algorithm>
 #include <ctime>
 using namespace std;
 
 /*==== Constructor ====*/
-Review::Review(const sf::Vector2f& winSize, const std::string& fileName)
-	: filename(fileName)
+Review::Review(const sf::Vector2f& winSize, AppState& appState)
+	: app(appState), filename(appState.currentUserFile)
 {
 	refreshAvailable(filename);
 	cardQueue = getQueue(filename);
