@@ -9,5 +9,7 @@ struct AppState
 	string currentUserFile = "data/sampleSRS.txt";
 	LocalStorage storage;
 
+	UserProgress progress;
+
 	AppState();
 };
