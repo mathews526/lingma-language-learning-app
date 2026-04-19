@@ -223,35 +223,19 @@ time_t setNext(time_t& now, int srsLvl)
 	time_t next = now;
 	switch (srsLvl)
 	{
+	case 1:
+		next += 60;
 	case 2:
-		next += 10;
+		next += 120;
 		break;
 	case 3:
-		next += 20;
+		next += 600;
 		break;
 	case 4:
-		next += 30;
+		next += 1800;
 		break;
 	case 5:
-		next += 40;
-		break;
-	case 6:
-		next += 50;
-		break;
-	case 7:
-		next += 60;
-		break;
-	case 8:
-		next += 70;
-		break;
-	case 9:
-		next += 80;
-		break;
-	case 10:
-		next += 90;
-		break;
-	case 11:
-		next += 100;
+		next += 3600;
 		break;
 	default:
 		next += 10;
