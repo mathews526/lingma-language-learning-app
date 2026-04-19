@@ -16,7 +16,7 @@ UserSelect::UserSelect(const sf::Vector2f& winSize, AppState& appState)
 	: app(appState)
 {
 	LoadFont("Verdana");
-	PushBackElements(static_cast<sf::Vector2f>(winSize));
+	PushBackElements(winSize);
 }
 
 /*==== Main Behavior ====*/
@@ -72,9 +72,6 @@ void UserSelect::Update(const sf::Vector2f& winSize)
 }
 void UserSelect::CreateUserFromBottomTextbox()
 {
-	if (textboxes.empty())
-		return;
-
 	ActivateUser(textboxes[1]->GetText(), true);
 }
 void UserSelect::LoginUserFromTopTextbox()
@@ -108,8 +105,18 @@ bool UserSelect::ActivateUser(const string& rawUsername, bool createMode)
 	const string sampleFile = "data/sampleSRS.txt";
 	const string userFile = "data/" + username + ".txt";
 
+	// Never allow the sample template to be treated like a real user
+	if (userFile == sampleFile)
+		return false;
+
+	UserProgress progress;
+
 	if (createMode)
 	{
+		// Username already exists as a profile
+		if (app.storage.loadUserProgress(username, progress) || FileExists(userFile))
+			return false;
+
 		if (FileExists(userFile))
 			return false;
 
@@ -118,19 +125,21 @@ bool UserSelect::ActivateUser(const string& rawUsername, bool createMode)
 
 		if (!CopyFileStream(sampleFile, userFile))
 			return false;
+
+		app.progress = UserProgress{ username, 0, 0, 0 };
+		app.storage.saveUserProgress(app.progress);
 	}
 	else
 	{
+		// Must already exist as a real user
+		if (!app.storage.loadUserProgress(username, progress))
+			return false;
+
 		if (!FileExists(userFile))
 			return false;
-	}
 
-	UserProgress progress;
-	if (!app.storage.loadUserProgress(username, progress))
-	{
-		app.storage.saveUserProgress(UserProgress{ username, 0, 0, 0 });
+		app.progress = progress;
 	}
-
 	app.currentUsername = username;
 	app.currentUserFile = userFile;
 	nextScreen = ScreenType::MainMenu;

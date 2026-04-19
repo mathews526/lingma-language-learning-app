@@ -6,7 +6,9 @@
 using namespace std;
 
 // Constructor
-LocalStorage::LocalStorage(const string& file) : filename(file) {}
+LocalStorage::LocalStorage(const string& file) {
+    filename = "data/" + file;
+}
 
 // Check if file exists
 bool LocalStorage::fileExists() const {

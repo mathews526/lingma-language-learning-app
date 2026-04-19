@@ -6,14 +6,15 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::string;
+using std::vector;
 
 // Struct to hold one user's progress
 struct UserProgress {
     string username;
-    int lessonNumber;
-    int completionPercent;
-    int streak;
+    int lessonNumber = 0;
+    int completionPercent = 0;
+    int streak = 0;
 };
 
 // Struct to hold one vocab word's SRS info

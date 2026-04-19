@@ -1,6 +1,6 @@
 #pragma once
-#include "LocalStorage.h"
 #include <string>
+#include "LocalStorage.h"
 using std::string;
 
 struct AppState

@@ -8,7 +8,8 @@ using namespace std;
 LessonButton::LessonButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const string& textureName, Screen& parentScreen)
 	: ImageButton(size, position, color, textureName), parent(parentScreen)
 {
-
+	button.setOutlineThickness(2.0f);
+	button.setOutlineColor(sf::Color(180, 180, 180));
 }
 void LessonButton::MousePress()
 {
@@ -24,7 +25,8 @@ void LessonButton::UpdatePosition(const sf::Vector2f& winSize)
 ReviewButton::ReviewButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const string& textureName, Screen& parentScreen)
 	: ImageButton(size, position, color, textureName), parent(parentScreen)
 {
-
+	button.setOutlineThickness(2.0f);
+	button.setOutlineColor(sf::Color(180, 180, 180));
 }
 void ReviewButton::MousePress()
 {
