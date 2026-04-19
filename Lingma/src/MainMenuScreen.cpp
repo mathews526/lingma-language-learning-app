@@ -9,20 +9,31 @@ using namespace std;
 
 /*==== Constructor ====*/
 MainMenu::MainMenu(const sf::Vector2f& winSize, AppState& appState)
-	: app(appState)
+	: app(appState), starButton(appState)
 {
 	LoadFont("Verdana");
 	levelLabelText.emplace(font, "", 16);
 	countText.emplace(font, "", 16);
 
+	// UPDATE: Goal bar elements
+	goalBarLabel.emplace(font, "", 13);
+
 	levelLabelText->setFillColor(sf::Color::Black);
 	countText->setFillColor(sf::Color::Black);
+
+	// UPDATE: Goal bar elements
+	goalBarLabel->setFillColor(sf::Color::Black);
 	
 	LoadDashboardData();
 	PushBackElements(winSize);
 
 	BuildDashboardVisuals(winSize);
 	PositionDashboard(winSize);
+
+	// UPDATE: Add goal buttons
+	BuildGoalVisuals(winSize);
+	PositionGoalVisuals(winSize);
+	starButton.UpdatePosition(winSize);
 }
 
 /*==== Main Behavior ====*/
@@ -56,11 +67,47 @@ void MainMenu::Draw(sf::RenderWindow& window)
 			window.draw(*countText);
 		}
 	}
+
+	// UPDATE: Draw goal bar elements
+	if (app.goal.IsGoalSet())
+	{
+		window.draw(goalBarBack);
+		window.draw(goalBarFill);
+		if (goalBarLabel)
+			window.draw(*goalBarLabel);
+	}
+	starButton.Draw(window);
 }
 void MainMenu::Update(const sf::Vector2f& winSize)
 {
 	Screen::Update(winSize);
 	PositionDashboard(winSize);
+
+	// UPDATE: Position goal bar elements
+	BuildGoalVisuals(winSize);
+	PositionGoalVisuals(winSize);
+	starButton.UpdatePosition(winSize);
+}
+
+// UPDATE: Handle click and enter for star goal elements; keeps MouseClick from getting too messy
+void MainMenu::HandleEvents(const sf::Event& event, sf::RenderWindow& window)
+{
+	Screen::HandleEvents(event, window);
+	if (const auto* mousePress = event.getIf<sf::Event::MouseButtonPressed>()) 
+	{
+		if (mousePress->button == sf::Mouse::Button::Left) 
+		{
+			sf::Vector2f mousePos = window.mapPixelToCoords(mousePress->position);
+			starButton.HandleClick(mousePos);
+		}
+	}
+	if (const auto* keyPress = event.getIf<sf::Event::KeyPressed>())
+	{
+		if (keyPress->code == sf::Keyboard::Key::Enter)
+		{
+			starButton.ConfirmGoal();
+		}
+	}
 }
 
 /*==== Helper Functions ====*/
@@ -166,5 +213,50 @@ void MainMenu::PositionDashboard(const sf::Vector2f& winSize)
 	{
 		levelTiles[i].setOrigin(levelTiles[i].getGeometricCenter());
 		levelTiles[i].setPosition({ startX + i * (tileSize.x + gap), startY });
+	}
+}
+
+// UPDATE: Goal bar helper functions
+void MainMenu::BuildGoalVisuals(const sf::Vector2f& winSize)
+{
+	goalBarBack.setSize({ 120.0f, 14.0f });
+	goalBarBack.setFillColor(sf::Color(220, 220, 220));
+	goalBarFill.setOutlineThickness(1.0f);
+	goalBarFill.setOutlineColor(sf::Color(160, 160, 160));
+
+	float ratio = 0.0f;
+	if (app.goal.IsGoalSet() && app.goal.GetGoal() > 0)
+		ratio = static_cast<float>(app.goal.GetWordsCounted()) / static_cast<float>(app.goal.GetGoal());
+	if (ratio > 1.0f) 
+		ratio = 1.0f;
+
+	goalBarFill.setSize({ goalBarBack.getSize().x * ratio, goalBarBack.getSize().y });
+	goalBarFill.setFillColor(app.goal.IsGoalMet() ? sf::Color(100, 200, 100) : sf::Color(100, 160, 220));
+}
+
+void MainMenu::PositionGoalVisuals(const sf::Vector2f& winSize)
+{
+	if (!app.goal.IsGoalSet())
+		return;
+
+	sf::FloatRect starBounds = starButton.GetGlobalBounds();
+	float barHeight = goalBarBack.getSize().y;
+	float barWidth = goalBarBack.getSize().x;
+	float gap = 15.0f;
+	
+	// Align bar vertically to center of the star sprite
+	float barX = starBounds.position.x - barWidth - gap; 
+	float topY = starBounds.position.y + (starBounds.size.y / 2.0f) - (barHeight / 2.0f);
+
+	goalBarBack.setPosition({ barX, topY });
+	goalBarFill.setPosition({ barX, topY });
+
+	if (goalBarLabel)
+	{
+		string labelStr = to_string(app.goal.GetWordsCounted()) + " / " + to_string(app.goal.GetGoal()) + " words";
+		goalBarLabel->setString(labelStr);
+		sf::FloatRect bounds = goalBarLabel->getLocalBounds();
+		goalBarLabel->setOrigin({ bounds.position.x + bounds.size.x / 2.0f, 0.0f });
+		goalBarLabel->setPosition({ barX + (barWidth / 2.0f), topY + goalBarBack.getSize().y + 4.0f });
 	}
 }
