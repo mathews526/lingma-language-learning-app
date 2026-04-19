@@ -6,7 +6,9 @@
 using namespace std;
 
 // Constructor
-LocalStorage::LocalStorage(const string& file) : filename(file) {}
+LocalStorage::LocalStorage(const string& file) {
+    filename = "data/" + file;
+}
 
 // Check if file exists
 bool LocalStorage::fileExists() const {
@@ -82,6 +84,8 @@ void LocalStorage::saveUserProgress(const UserProgress& newUser) const {
     saveAllProgress(users);
 }
 
+
+
 // Load one user by username
 bool LocalStorage::loadUserProgress(const string& username, UserProgress& result) const {
     vector<UserProgress> users = loadAllProgress();
@@ -94,4 +98,40 @@ bool LocalStorage::loadUserProgress(const string& username, UserProgress& result
     }
 
     return false;
+}
+
+
+/* Notes from meeting : Create a function that creates a new user string and create the text file with all the vocab words
+   and default it to SRS level 1, and dummy timestamps and set the variable Boolean to false = 0 with all the words */
+
+   //Saving vocab words for a new user to a separate file with Default SRS level 1
+bool LocalStorage::createNewUserVocabFile(const string& username) const {
+    string userFileName = username + ".txt";
+    ofstream outFile(userFileName);
+
+    if (!outFile.is_open()) {
+        cout << "Error: Could not create vocab file for user " << username << endl;
+        return false;
+    }
+
+    // Format:
+    // word,srsLevel,lastReviewed,nextReview,availablity
+
+
+    const auto& vocabRef = this->vocab;
+    for (size_t i = 0; i < vocabRef.size(); i++) {
+        outFile << vocabRef[i] << ","
+            << 1 << ","
+            << "1767225600" << ","
+            << "1767225600" << ","
+            << 0 << endl;
+    }
+
+    outFile.close();
+    return true;
+}
+
+vector<string> LocalStorage::getVocab() const
+{
+    return vocab;
 }

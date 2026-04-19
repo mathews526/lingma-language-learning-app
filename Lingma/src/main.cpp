@@ -6,9 +6,8 @@
 #include "MainMenuScreen.h"
 #include "LessonScreen.h"
 #include "ReviewScreen.h"
-#include "Card.h"
 #include "TextureManager.h"
-#include "SRS.h"
+#include "AppState.h"
 using namespace std;
 
 void startProgram();
@@ -32,18 +31,16 @@ void startProgram()
 	sf::View view(sf::FloatRect({ 0.0f, 0.0f }, { static_cast<float>(width), static_cast<float>(height) }));
 
 	sf::Vector2f winSize = static_cast<sf::Vector2f>(window.getSize());
-	unique_ptr<Screen> currentScreen = make_unique<UserSelect>(winSize);
 
-	/*
-		TODO: Have the current username update whenever the user creates a new user or logs in to an already existing one
-	*/
-	string currentUserName = "data/sampleUser.txt"; // This will hold the filename of the currently loaded user. For now it will be set to the test user
+	AppState appState;
+	unique_ptr<Screen> currentScreen = make_unique<UserSelect>(winSize, appState);
 
 	// Event Handling
 	while (window.isOpen())
 	{
 		while (const std::optional event = window.pollEvent())
 		{
+			// Program closes when pressing the X button
 			if (event->is<sf::Event::Closed>())
 				window.close();
 
@@ -73,13 +70,11 @@ void startProgram()
 		{
 			// Check which screen was requested requested
 			if (currentScreen->nextScreen == ScreenType::MainMenu)
-				currentScreen = make_unique<MainMenu>(winSize); // Updates to MainMenu screen
+				currentScreen = make_unique<MainMenu>(winSize, appState); // Updates to MainMenu screen
 			else if (currentScreen->nextScreen == ScreenType::Lesson)
-				currentScreen = make_unique<Lesson>(winSize, currentUserName); // Updates to Lesson screen
+				currentScreen = make_unique<Lesson>(winSize, appState); // Updates to Lesson screen
 			else if (currentScreen->nextScreen == ScreenType::Review)
-				currentScreen = make_unique<Review>(winSize, currentUserName); // Updates to Lesson screen
-
-			// TODO: Add more else-if blocks here later for the other screens
+				currentScreen = make_unique<Review>(winSize, appState); // Updates to Lesson screen
 		}
 
 		window.clear(sf::Color(255, 255, 255)); // White background

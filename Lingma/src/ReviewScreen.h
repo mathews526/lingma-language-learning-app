@@ -1,6 +1,7 @@
 #pragma once
 #include "Screens.h"
 #include "Card.h"
+#include "AppState.h"
 #include <SFML/Graphics.hpp>
 #include <queue>
 #include <string>
@@ -12,7 +13,7 @@ using std::optional;
 struct Review : public Screen
 {
 	/*==== Constructor ====*/
-	Review(const sf::Vector2f& winSize, const std::string& fileName);
+	Review(const sf::Vector2f& winSize, AppState& appState);
 
 	/*==== Main Behavior ====*/
 	void Draw(sf::RenderWindow& window);
@@ -22,6 +23,7 @@ struct Review : public Screen
 	void PlayCurrentAudio();
 
 private:
+	AppState& app;
 	string filename;
 	queue<Card> cardQueue;
 	Card currentCard;

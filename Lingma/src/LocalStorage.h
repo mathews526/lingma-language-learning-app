@@ -1,23 +1,42 @@
+
 #ifndef LOCALSTORAGE_H
 #define LOCALSTORAGE_H
 
+#include <ctime>
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::string;
+using std::vector;
 
 // Struct to hold one user's progress
 struct UserProgress {
     string username;
-    int lessonNumber;
-    int completionPercent;
-    int streak;
+    int lessonNumber = 0;
+    int completionPercent = 0;
+    int streak = 0;
+};
+
+// Struct to hold one vocab word's SRS info
+struct VocabEntry {
+    string word;
+    int srsLevel;
+    string lastReviewed;
+    string nextReview;
+    bool isLearned;
 };
 
 // Class for saving/loading progress locally from a text file
 class LocalStorage {
 private:
     string filename;
+    vector<string> vocab = {"book", "bye", "can", "cook", "day", "drink", 
+                            "eat", "english", "food", "go", "guitar", "hello", 
+                            "home", "how", "i", "like", "listen", "meet",
+                            "movie", "music", "no", "phone", "play", "please",
+                            "read", "sleep", "talk", "thanks", "time", "today",
+                            "want", "watch", "we", "what", "when", "where",
+                            "who", "why", "yes", "you"};
 
 public:
     // Constructor
@@ -37,6 +56,11 @@ public:
 
     // Loads one user's progress by username
     bool loadUserProgress(const string& username, UserProgress& result) const;
+
+    bool createNewUserVocabFile(const string& username) const;
+
+    vector<string> getVocab() const;
+
 };
 
 #endif
