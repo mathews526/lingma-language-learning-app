@@ -60,7 +60,8 @@ bool LearningGoal::IsGoalMet() const
 int LearningGoal::LoadProgress() 
 {
 	ifstream inFile(_goalFilename);
-	if (!inFile.is_open()) return 0;
+	if (!inFile.is_open()) 
+		return 0;
 	string line;
 	while (getline(inFile, line))
 	{
@@ -69,7 +70,7 @@ int LearningGoal::LoadProgress()
 			try
 			{
 				_goal = stoi(numStream);
-				_goalSet = (_goal > 0);
+				_goalSet = false;
 				inFile.close();
 				return _goal;
 
