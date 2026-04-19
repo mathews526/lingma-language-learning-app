@@ -67,12 +67,12 @@ void MainMenu::Update(const sf::Vector2f& winSize)
 void MainMenu::PushBackElements(const sf::Vector2f& winSize)
 {
 	sf::Vector2f largeButtonSize({ 325.0f, 125.0f });
-	sf::Color lightBlue(0xcc, 0xff, 0xff);
-	sf::Color limeGreen(0xccff66ff);
+	sf::Color cloudBlue(215, 235, 255);
+	sf::Color pastelTeal(200, 240, 240);
 
 	// If you change the button position here make sure to also change it in the UpdatePosition functions within the button classes
-	buttons.push_back(make_unique<LessonButton>(largeButtonSize, sf::Vector2f(winSize.x / 4.0f, winSize.y / 4.0f), lightBlue, "learn", *this));
-	buttons.push_back(make_unique<ReviewButton>(largeButtonSize, sf::Vector2f((3.0f * winSize.x) / 4.0f, winSize.y / 4.0f), limeGreen, "review", *this));
+	buttons.push_back(make_unique<LessonButton>(largeButtonSize, sf::Vector2f(winSize.x / 4.0f, winSize.y / 4.0f), pastelTeal, "learn", *this));
+	buttons.push_back(make_unique<ReviewButton>(largeButtonSize, sf::Vector2f((3.0f * winSize.x) / 4.0f, winSize.y / 4.0f), cloudBlue, "review", *this));
 }
 void MainMenu::LoadDashboardData()
 {
@@ -132,11 +132,11 @@ void MainMenu::BuildDashboardVisuals(const sf::Vector2f& winSize)
 
 	sf::Color tileColors[6] = {
 		sf::Color(200, 200, 200),
-		sf::Color(120, 180, 255),
-		sf::Color(120, 220, 160),
-		sf::Color(255, 220, 120),
-		sf::Color(255, 180, 120),
-		sf::Color(240, 200, 80)
+		sf::Color(255, 180, 180),
+		sf::Color(255, 210, 180),
+		sf::Color(255, 255, 190),
+		sf::Color(210, 245, 190),
+		sf::Color(180, 235, 200)
 	};
 
 	for (int i = 0; i < 6; i++)
