@@ -78,7 +78,11 @@ void refreshAvailable(string filename)
 		}
 		int srslvl = stoi(tokens[1]);
 		long long lastSeen = stoll(tokens[3]);
-		if (srslvl >= 5)
+		if (srslvl == 0)
+		{
+			tokens[4] = "0";
+		}
+		else if (srslvl >= 5)
 		{
 			// Mastered cards never become available again
 			tokens[4] = "0";
@@ -145,7 +149,7 @@ queue<Card> getQueue(string filename)
 
 		Card c(word, srslvl, ts1, ts2, available);
 
-		if (available && srslvl < 5)
+		if (available && srslvl < 5 && srslvl > 0)
 		{
 			q.push(c);
 		}
