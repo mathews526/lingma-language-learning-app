@@ -1,51 +1,88 @@
+#include <iostream>
 #include "StarButtons.h"
-#include <SFML/Graphics.hpp>
+#include "TextureManager.h"
+#include <algorithm>
 #include <string>
 using namespace std;
 
 /*==== StarButton Functions ====*/
-StarButton::StarButton(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, int starCount, AppState& appState)
-	: Button(size, position, color), app(appState), _starCount(starCount), _index(starCount - 1), label(GetSharedFont(), string(_starCount, '*'), 14)
+StarButton::StarButton(AppState& appState) : app(appState), sprite(TextureManager::GetTexture(IndexToTextureName(0)))
 {
-	label.setFillColor(sf::Color::Yellow);
+	if (app.goal.IsGoalSet()) 
+	{
+		int progress = min(app.goal.GetWordsCounted(), app.goal.GetGoal());
+		_displayIndex = progress;
+	}
+	sprite.setTexture(TextureManager::GetTexture(IndexToTextureName(_displayIndex)), true);
 }
 
-void StarButton::MousePress()
+/*==== Main Behaviors ====*/
+void StarButton::HandleClick(sf::Vector2f mousePos)
 {
-	app.goal.SetGoal(_starCount);
+	if (app.goal.IsGoalSet())
+		return;
+	if (!Contains(mousePos))
+		return;
+	_displayIndex++;
+	if (_displayIndex > 5)
+		_displayIndex = 1; // Wrap around to 1 star if user clicks after 5 stars
+	RefreshSprite();
 }
 
-void StarButton::DrawButton(sf::RenderWindow& window) 
+void StarButton::ConfirmGoal()
 {
-	Button::DrawButton(window);
+	if (app.goal.IsGoalSet())
+		return;
+	if (_displayIndex > 0)
+		app.goal.SetGoal(_displayIndex);
+}
 
-	sf::FloatRect bounds = label.getLocalBounds();
-	label.setOrigin({ bounds.position.x + bounds.size.x / 2.0f, bounds.position.y + bounds.size.y / 2.0f });
-	label.setPosition(button.getPosition());
-
-	window.draw(label);
+void StarButton::Draw(sf::RenderWindow& window)
+{
+	if (app.goal.IsGoalSet())
+	{
+		int progress = min(app.goal.GetWordsCounted(), app.goal.GetGoal());
+		if (progress != _displayIndex)
+		{
+			_displayIndex = progress;
+			RefreshSprite();
+		}
+	}
+	window.draw(sprite);
 }
 
 void StarButton::UpdatePosition(const sf::Vector2f& winSize)
 {
-	float buttonWidth = 50.0f;
-	float gap = 10.0f;
-	float totalWidth = (5 * buttonWidth) + (4 * gap);
-	float startX = winSize.x - totalWidth - 20.0f;
-	float y = 30.0f;
-	SetPosition({ startX + _index * (buttonWidth + gap) + buttonWidth / 2.0f, y });
+	_lastWinSize = winSize;
+	sprite.setScale({ _scale, _scale });
+
+	sf::FloatRect bounds = sprite.getGlobalBounds();
+	sprite.setOrigin({ 0.0f, 0.0f });
+	sprite.setPosition({ winSize.x - bounds.size.x, 0.0f });
 }
 
-/*==== Helper Function ====*/
-sf::Font& StarButton::GetSharedFont()
+bool StarButton::Contains(sf::Vector2f mousePos) const
 {
-	static sf::Font font;
-	static bool loaded = false;
-	if (!loaded)
-	{
-		font.openFromFile("Verdana.ttf");
-		loaded = true;
-	}
-	return font;
+	return sprite.getGlobalBounds().contains(mousePos);
+}
+
+sf::FloatRect StarButton::GetGlobalBounds() const
+{
+	return sprite.getGlobalBounds();
+}
+
+/*==== Helper Functions ====*/
+void StarButton::RefreshSprite()
+{
+	// Swap texture
+	sprite.setTexture(TextureManager::GetTexture(IndexToTextureName(_displayIndex)), true);
+	if (_lastWinSize.x > 0.0f)
+		UpdatePosition(_lastWinSize);
+	std::cout << "Loading texture: " << IndexToTextureName(_displayIndex) << std::endl;
+}
+
+string StarButton::IndexToTextureName(int index)
+{
+	return "star_row" + to_string(index); // e.g. "star_row0.png", "star_row1.png", ..., "star_row5.png"
 }
 
