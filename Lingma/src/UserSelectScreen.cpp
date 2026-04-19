@@ -142,6 +142,11 @@ bool UserSelect::ActivateUser(const string& rawUsername, bool createMode)
 	}
 	app.currentUsername = username;
 	app.currentUserFile = userFile;
+
+	// UPDATE: point goal tracker at user and load any previously saved goal
+	app.goal.SetUsername(username);
+	app.goal.LoadProgress();
+
 	nextScreen = ScreenType::MainMenu;
 	return true;
 }
