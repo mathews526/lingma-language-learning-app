@@ -1,23 +1,26 @@
 #include "LearningGoal.h"
 #include <fstream>
-#include <sstream>
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
 /*==== Constructor ====*/
-LearningGoal::LearningGoal(const string& userFilename)
-	: _filename(userFilename)
+LearningGoal::LearningGoal() {}
+
+/*==== Setup ====*/
+void LearningGoal::SetUsername(const string& username)
 {
+	_goalFilename = BuildGoalFilename(username);
+	_goal = 0;
+	_goalSet = false;
+	_wordGreenCounts.clear();
 }
 
-/*==== Goal Setting ====*/
 void LearningGoal::SetGoal(int starCount)
 {
 	if (_goalSet) return; // Goal already set this session, do nothing
-	_goal = starCount * wordsPerStar; // Convert stars to words
+	_goal = starCount * wordsPerStar;
 	_goalSet = true;
-	SaveProgress(); // Save the goal immediately so it persists even if the user doesn't log out properly
+	SaveProgress();
 }
 
 bool LearningGoal::IsGoalSet() const
@@ -31,7 +34,7 @@ int LearningGoal::GetGoal() const
 }
 
 /*==== Session Tracking ====*/
-void LearningGoal::RecordGreenRating(const string& word)
+void LearningGoal::RecordGreenRating(const string& word) 
 {
 	_wordGreenCounts[word]++;
 }
@@ -39,7 +42,7 @@ void LearningGoal::RecordGreenRating(const string& word)
 int LearningGoal::GetWordsCounted() const
 {
 	int count = 0;
-	for (const auto& [word, ratings] :_wordGreenCounts)
+	for (const auto& [word, ratings] : _wordGreenCounts)
 	{
 		if (ratings >= reviewsRequiredForGoal)
 			count++;
@@ -49,71 +52,57 @@ int LearningGoal::GetWordsCounted() const
 
 bool LearningGoal::IsGoalMet() const
 {
-	if (!_goalSet || _goal <= 0) return false; // No valid goal set
+	if (!_goalSet || _goal <= 0) return false; // No goal set or invalid goal) 
 	return GetWordsCounted() >= _goal;
 }
 
 /*==== Persistence ====*/
-void LearningGoal::SaveProgress()
+int LearningGoal::LoadProgress() 
 {
-	// Read existing data to preserve it
-	ifstream inFile(_filename);
-	if (!inFile.is_open())
-	{
-		cerr << "Error: Could not open file for saving learning goal: " << _filename << endl;
-		return;
-	}
-
-	vector<string> lines;
+	ifstream inFile(_goalFilename);
+	if (!inFile.is_open()) return 0;
 	string line;
 	while (getline(inFile, line))
 	{
-		// Strip out any existing goal lines
-		if (line.find(goalPrefix) == string::npos)
-			lines.push_back(line);
-	}
-	inFile.close();
-
-	// Append the current goal and progress
-	ofstream outFile(_filename, ios::trunc);
-	if (!outFile.is_open())
-	{
-		cerr << "Error: Could not open file for saving learning goal: " << _filename << endl;
-		return;
-	}
-
-	for (const auto& l : lines)
-		outFile << l << "\n"; // Write back preserved lines
-
-	outFile << goalPrefix << _goal << "\n";
-	outFile.close();
-}
-
-int LearningGoal::LoadProgress() const
-{
-	ifstream inFile(_filename);
-	if (!inFile.is_open())
-		return 0;
-
-	string line;
-	int found = 0;
-	string prefix(goalPrefix);
-	while (getline(inFile, line))
-	{
-		if (line.find(goalPrefix) == 0)
-		{
-			string numStr = line.substr(prefix.size());
+		if (line.find(goalPrefix) == 0) {
+			string numStream = line.substr(string(goalPrefix).size());
 			try
 			{
-				found = stoi(numStr);
+				_goal = stoi(numStream);
+				_goalSet = (_goal > 0);
+				inFile.close();
+				return _goal;
+
 			}
 			catch (const invalid_argument&)
 			{
-				cerr << "Error: Invalid goal format in save file: " << numStr << endl;
-				return 0;
+				cerr << "Error: Invalid goal format in save file: " << numStream << endl;
 			}
 		}
 	}
 	inFile.close();
-	return found;
+	return 0;
+}
+
+void LearningGoal::SaveProgress() const
+{
+	if (_goalFilename.empty()) 
+	{
+		cerr << "Error: LearningGoal has no filename set. Call SetUsername first." << endl;
+		return;
+	}
+	ofstream outFile(_goalFilename, ios::trunc);
+	if (!outFile.is_open()) 
+	{
+		cerr << "Error: Could not open goal file for saving: " << _goalFilename << endl;
+		return;
+	}
+	outFile << goalPrefix << _goal << "\n";
+	outFile.close();
+}
+
+/*==== Private Helpers ====*/
+string LearningGoal::BuildGoalFilename(const string& username)
+{
+	return "data/" + username + "_goal.txt";
 }
