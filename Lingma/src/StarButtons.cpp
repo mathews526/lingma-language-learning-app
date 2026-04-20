@@ -1,4 +1,3 @@
-#include <iostream>
 #include "StarButtons.h"
 #include "TextureManager.h"
 #include <algorithm>
@@ -23,9 +22,18 @@ void StarButton::HandleClick(sf::Vector2f mousePos)
 		return;
 	if (!Contains(mousePos))
 		return;
-	_displayIndex++;
-	if (_displayIndex > 5)
-		_displayIndex = 1; // Wrap around to 1 star if user clicks after 5 stars
+
+	// Figure out which star was clicked based on mouse position and update display index accordingly
+	sf::FloatRect bounds = sprite.getGlobalBounds();
+	float relX = mousePos.x - bounds.position.x;
+	float starWidth = bounds.size.x / 5.0f; // Each star takes up 1/5 of the total width
+	int clickedStar = static_cast<int>(relX / starWidth) + 1; // +1 because star index starts at 1
+	if (clickedStar < 1)
+		clickedStar = 1;
+	if (clickedStar > 5)
+		clickedStar = 5;
+	
+	_displayIndex = clickedStar;
 	RefreshSprite();
 }
 
@@ -78,7 +86,6 @@ void StarButton::RefreshSprite()
 	sprite.setTexture(TextureManager::GetTexture(IndexToTextureName(_displayIndex)), true);
 	if (_lastWinSize.x > 0.0f)
 		UpdatePosition(_lastWinSize);
-	std::cout << "Loading texture: " << IndexToTextureName(_displayIndex) << std::endl;
 }
 
 string StarButton::IndexToTextureName(int index)
