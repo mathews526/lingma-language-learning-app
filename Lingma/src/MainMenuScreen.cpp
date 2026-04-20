@@ -254,7 +254,7 @@ void MainMenu::PositionGoalVisuals(const sf::Vector2f& winSize)
 
 	if (goalBarLabel)
 	{
-		string labelStr = to_string(app.goal.GetWordsCounted()) + " / " + to_string(app.goal.GetGoal()) + " words";
+		string labelStr = to_string(min(app.goal.GetWordsCounted(), app.goal.GetGoal())) + " / " + to_string(app.goal.GetGoal()) + " words";
 		goalBarLabel->setString(labelStr);
 		sf::FloatRect bounds = goalBarLabel->getLocalBounds();
 		goalBarLabel->setOrigin({ bounds.position.x + bounds.size.x / 2.0f, 0.0f });
