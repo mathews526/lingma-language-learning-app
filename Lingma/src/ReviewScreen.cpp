@@ -41,6 +41,11 @@ void Review::RateCurrentCard(int rating)
 	if (!hasCurrentCard)
 		return;
 
+	// UPDATE: Record green rating for goal tracking
+	if (rating == 3)
+		app.goal.RecordGreenRating(currentCard.getWord());
+
+
 	currentCard.setLvl(rating);
 
 	time_t now = time(nullptr); // returns current time

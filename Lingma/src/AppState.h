@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "LocalStorage.h"
+#include "LearningGoal.h"
 using std::string;
 
 struct AppState
@@ -10,6 +11,7 @@ struct AppState
 	LocalStorage storage;
 
 	UserProgress progress;
+	LearningGoal goal;
 
 	AppState();
 };
