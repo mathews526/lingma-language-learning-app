@@ -101,9 +101,10 @@ void MainMenu::HandleEvents(const sf::Event& event, sf::RenderWindow& window)
 			starButton.HandleClick(mousePos);
 		}
 	}
-	if (const auto* keyPress = event.getIf<sf::Event::KeyPressed>())
+
+	if (const auto* keyPress = event.getIf<sf::Event::KeyPressed>()) 
 	{
-		if (keyPress->code == sf::Keyboard::Key::Enter)
+		if (keyPress->code == sf::Keyboard::Key::Enter) 
 		{
 			starButton.ConfirmGoal();
 		}
