@@ -16,7 +16,7 @@ UPDATE: Goal data is saved to a separate file.
 class LearningGoal
 {
 public:
-	static constexpr int reviewsRequiredForGoal = 3; // Number of times a word must be rated green to count towards the goal
+	static constexpr int reviewsRequiredForGoal = 1; // Number of times a word must be rated green to count towards the goal
 	static constexpr int wordsPerStar = 1; // 1 star = 1 word, 2 stars = 2 words, etc.
 
 	/*==== Constructor ====*/
