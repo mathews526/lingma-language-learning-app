@@ -8,7 +8,7 @@ using std::unordered_map;
 LEARNING GOAL FUNCTIONALITY:
 ----------------------------
 Track the learning goal for one login session.
-Goal = N words, where a word "counts" if it was rated green (rating 3) at least 3 times this session.
+Goal = N words, where a word "counts" if it was rated green (rating 1) at least 1 time this session.
 Once set, the goal cannot be changed for the remainder of the session.
 UPDATE: Goal data is saved to a separate file.
 */
