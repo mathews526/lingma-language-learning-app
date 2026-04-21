@@ -135,6 +135,7 @@
     <ClCompile Include="src\Buttons.cpp" />
     <ClCompile Include="src\ImageButton.cpp" />
     <ClCompile Include="src\CardButtons.cpp" />
+    <ClCompile Include="src\LearningGoal.cpp" />
     <ClCompile Include="src\LessonScreen.cpp" />
     <ClCompile Include="src\LocalStorage.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="src\ReviewScreen.cpp" />
     <ClCompile Include="src\Screens.cpp" />
     <ClCompile Include="src\SRS.cpp" />
+    <ClCompile Include="src\StarButtons.cpp" />
     <ClCompile Include="src\Textbox.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\UserSelectButtons.cpp" />
@@ -154,6 +156,7 @@
     <ClInclude Include="src\Card.h" />
     <ClInclude Include="src\ImageButton.h" />
     <ClInclude Include="src\CardButtons.h" />
+    <ClInclude Include="src\LearningGoal.h" />
     <ClInclude Include="src\LessonScreen.h" />
     <ClInclude Include="src\LocalStorage.h" />
     <ClInclude Include="src\MainMenuButtons.h" />
@@ -161,6 +164,7 @@
     <ClInclude Include="src\ReviewScreen.h" />
     <ClInclude Include="src\Screens.h" />
     <ClInclude Include="src\SRS.h" />
+    <ClInclude Include="src\StarButtons.h" />
     <ClInclude Include="src\Textbox.h" />
     <ClInclude Include="src\TextureManager.h" />
     <ClInclude Include="src\UserSelectButtons.h" />
