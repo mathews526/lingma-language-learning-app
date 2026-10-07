@@ -15,7 +15,7 @@ Download and extract [SFML 3.0.2 for Visual C++](https://www.sfml-dev.org/downlo
 
 1. Clone the repo
 ```bash
-   git clone https://github.com/mathews526/sfml-minesweeper.git
+   https://github.com/mathews526/lingma-language-learning-app.git
 ```
 2. **Open the project:**
    Open `Lingma.sln` in Visual Studio.
