@@ -1,10 +1,10 @@
-# Lingma English-Language-Learning-SRS
-
-For English language learners and students who desire strong retention and efficient learning of English language skills, our product is a language learning and study tool that specializes in spaced repetition, a study technique that is scientifically-proven to be effective for learning. It will aid in retention of basic English language skills.
-
-Open Lingma.sln in Visual Studio, and use F5 to build the executable file.
-
-If accessing through a zip, find the executable through the Lingma folder.
+# Lingma: English Language Learning SRS
+ 
+A desktop language-learning app for English learners that uses a **spaced repetition system (SRS)** to build long-term retention of basic English vocabulary. Words you know well come back less often, and words you struggle with come back sooner, so study time goes where it matters most.
+ 
+**What makes Lingma different:** the app uses only images and audio, with no written words. Learners hear each English word and connect it directly to a picture of an object or action, the way people learn their first language. Because nothing depends on reading, the app is accessible to learners of any background or native language, including those who cannot yet read English.
+ 
+Built in **C++** with **SFML** as a four-person team project for CEN3031, Spring 2026.
 
 ## Getting Started
 
