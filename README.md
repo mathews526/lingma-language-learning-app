@@ -52,3 +52,7 @@ Built in **C++** with **SFML** as a four-person team for CEN3031, Spring 2026.
 - **Screen-based design**: a `Screen` parent class holds shared logic, and screens such as `MainMenu`, `UserSelect`, `LessonScreen`, and `ReviewScreen` derive from it. An `AppState` struct carries shared state between screens.
 - **Reusable UI components**: `Button`, `ImageButton`, and `Textbox` classes, with a `TextureManager` for loading and caching textures. Images and audio use SFML's texture, sprite, and sound buffer classes.
 - **Local file persistence**: each user's progress and review timestamps are saved to text files in the `data` folder, and all users' learning goals are stored together in a single separate file.
+
+## Credits
+ 
+Word illustrations are from [Irasutoya](https://www.irasutoya.com/).
