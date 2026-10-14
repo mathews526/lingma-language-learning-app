@@ -8,6 +8,8 @@ Built in **C++** with **SFML** as a four-person team for CEN3031, Spring 2026.
 
 <img width="844" height="500" alt="Lingma Demo Gif" src="https://github.com/user-attachments/assets/59ce3e77-d2e4-4ef5-960c-b388c40f3829" />
 
+*The GIF has no sound, so [watch the full prototype presentation with audio on YouTube](https://youtu.be/aBkNkDYzH4Y).*
+
 ## Features
  
 - **Image and audio only, no text**: words are taught through pictures and spoken audio rather than written definitions or translations. This makes the app usable by anyone and builds a direct link between the sound of a word and the object or action it names.
