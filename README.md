@@ -11,12 +11,12 @@ Built in **C++** with **SFML** as a four-person team for CEN3031, Spring 2026.
 ## Features
  
 - **Image and audio only, no text**: words are taught through pictures and spoken audio rather than written definitions or translations. This makes the app usable by anyone and builds a direct link between the sound of a word and the object or action it names.
-- **Spaced repetition engine**: every word is a card with an SRS level from 0 to 5, and new words start at level 0. Rate a card green to move it up a level, yellow to keep it at its level, or red to move it down. The rating also determines how soon the card reappears.
+- **User profiles**: create a profile or log in from the login screen. Text boxes accept alphanumeric characters only, and duplicate usernames are blocked.
 - **Lesson screen**: pairs each word's image with its audio pronunciation so you learn to associate the sound with the picture. Moving on from a lesson activates the word so it becomes available for review.
 - **Review screen**: quizzes you on words you have already learned, with no audio hint so you push your recall. Each rating and its timestamp is saved to your progress file.
+- **Spaced repetition system**: every word is a card with an SRS level from 0 to 5, and new words start at level 0. Rate a card green to move it up a level, yellow to keep it at its level, or red to move it down. The rating also determines how soon the card reappears.
 - **Progress dashboard**: six boxes show how many cards sit at each SRS level, plus a progress bar showing how close you are to mastering every card. It updates live as cards level up.
 - **Learning goals**: set a word target for your session using a row of stars (one star equals one word) and confirm it with Enter. A progress bar and the stars fill in as you rate words green in review, and the bar turns green when you hit your goal.
-- **User profiles**: create a profile or log in from the login screen. Text boxes accept alphanumeric characters only, and duplicate usernames are blocked.
 - **Persistent progress**: SRS levels, review history, and learning goals are saved per user to local files, so progress is restored when you log back in.
 
 ## Built With
